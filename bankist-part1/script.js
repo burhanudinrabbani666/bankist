@@ -61,6 +61,29 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+// FUNCTION
+
+function displayMovements(movements) {
+  movements.forEach((movement, index) => {
+    const type = movement > 0 ? "deposit" : "withdrawal";
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      index + 1
+    } deposit</div>
+      <div class="movements__value">${movement}€</div>
+    </div>
+    `;
+
+    containerMovements.insertAdjacentHTML("afterbegin", html);
+  });
+}
+
+displayMovements(account1.movements);
+
+console.log(containerMovements.innerHTML);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -75,6 +98,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*
+
 // Simple Array Method
 
 const arr = [1, 2, 3, 4, 5];
@@ -116,7 +140,6 @@ console.log(arr.at(-1)); // 5
 
 // use at string
 console.log("burhanudin rabbani".at(-1)); // i
-*/
 
 // 7. forEach Method
 
@@ -138,3 +161,22 @@ movements.forEach((mov, index) => {
   if (mov < 0)
     console.log(`Movements ${index + 1}: You withdrew ${Math.abs(mov)}`);
 });
+
+
+
+// using forEach with maps and set
+
+// a. forEach on map
+currencies.forEach((currencie, key) => {
+  console.log(`${key}: ${currencie}`);
+});
+
+console.log(`-------------`);
+// b. forEach on set
+const currencies2 = new Set(["EUR", "EUR", "DOLLAR", "DOLLAR", "IDR", "IDR"]);
+
+currencies2.forEach((currencie, key) => {
+  console.log(`${key}: ${currencie}`);
+});
+
+*/
