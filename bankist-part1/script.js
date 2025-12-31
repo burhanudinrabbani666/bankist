@@ -80,7 +80,19 @@ function displayMovements(movements) {
   });
 }
 
+function createUserName(accounts) {
+  // adding new properti to account
+  accounts.forEach((account) => {
+    account.userName = account.owner
+      .toLocaleLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
+  });
+}
+
 displayMovements(account1.movements);
+createUserName(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -209,7 +221,6 @@ Data 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 Hints: Use tools from all lectures in this section so far 😉
 GOOD LUCK 😀
-*/
 
 const dogsJulia = [9, 16, 6, 8, 3];
 const dogsKate = [10, 5, 6, 1, 4];
@@ -227,3 +238,27 @@ function checkDogs(dogs) {
 }
 
 checkDogs(dogsJuliaAndKate);
+
+// map method
+
+const ueroToUsd = 1.1;
+const movementUsd = movements.map((mov) => mov * ueroToUsd);
+
+console.log(movements); // not mutate
+console.log(movementUsd);
+
+const movementUsd1 = [];
+for (const mov of movements) {
+  movementUsd1.push(mov * ueroToUsd);
+}
+console.log(movementUsd1);
+
+const movementsDescription = movements.map(
+  (mov, index) =>
+    `movement ${index + 1}: You ${
+      mov > 0 ? "deposite" : "withdrawal"
+    } ${Math.abs(mov)}`
+);
+
+console.log(movementsDescription);
+*/
