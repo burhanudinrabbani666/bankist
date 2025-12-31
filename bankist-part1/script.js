@@ -80,9 +80,10 @@ function displayMovements(movements) {
   });
 }
 
+// map in practice
 function createUserName(accounts) {
-  // adding new properti to account
   accounts.forEach((account) => {
+    // adding new properti to account
     account.userName = account.owner
       .toLocaleLowerCase()
       .split(" ")
@@ -91,9 +92,18 @@ function createUserName(accounts) {
   });
 }
 
-displayMovements(account1.movements);
-createUserName(accounts);
+// reduce in practice
+function calcAndPrintBalance(movement) {
+  const balance = movement.reduce((acc, curr) => {
+    return (acc += curr);
+  });
 
+  labelBalance.textContent = `${balance} EUR`;
+}
+
+displayMovements(account1.movements);
+calcAndPrintBalance(account1.movements);
+createUserName(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -261,4 +271,43 @@ const movementsDescription = movements.map(
 );
 
 console.log(movementsDescription);
+
+// Filter method
+
+const deposit = movements.filter((movement) => movement >= 0);
+const withdrawal = movements.filter((movement) => movement <= 0);
+
+console.log(movements);
+console.log(deposit); // [200, 450, 3000, 70, 1300]
+console.log(withdrawal); // [-400, -650, -130]
+
+const deposit1 = [];
+const withdrawal1 = [];
+for (const movement of movements) {
+  movement > 0 ? deposit1.push(movement) : withdrawal1.push(movement);
+}
+
+console.log(deposit1);
+console.log(withdrawal1);
 */
+
+// reduce method
+
+const balance = movements.reduce((acc, curr) => {
+  console.log(`${acc} + ${curr} = ${acc + curr}`);
+  return (acc += curr); // Snowball
+}, 0); // Initial Value
+
+console.log(balance);
+
+console.log(`----------`);
+// Maximum value
+
+const maxValue = movements.reduce((acc, curr) => {
+  console.log(`${acc} > ${curr} = `);
+
+  if (acc > curr) return acc;
+  else return curr;
+}, movements[0]);
+
+console.log(maxValue);
