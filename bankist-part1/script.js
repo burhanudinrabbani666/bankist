@@ -74,7 +74,7 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
+/*
 // Simple Array Method
 
 const arr = [1, 2, 3, 4, 5];
@@ -102,3 +102,18 @@ console.log(nums); // [1, 2, 6, 7, 8, 9, 10]
 
 // 5. Join Method
 console.log(nums.join(" ")); // "1 2 6 7 8 9 10"
+*/
+
+const arr = [1, 2, 3, 4, 5];
+
+// 1. At Method
+console.log(arr[0]); // 1
+console.log(arr.at(0)); // 1
+
+// get last value of index
+console.log(arr[arr.length - 1]); // 5
+console.log(arr.slice(-1)); // 5
+console.log(arr.at(-1)); // 5
+
+// use at string
+console.log("burhanudin rabbani".at(-1)); // i
