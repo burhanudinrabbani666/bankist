@@ -1,6 +1,6 @@
 ## Looping Arrays: ForEach()
 
-The forEach() method of Array instances executes a provided function once for each array element
+The forEach() method of Array instances executes a provided function once for each array element. foreach cannot be break like for of !!
 
 ```js
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -27,18 +27,25 @@ movements.forEach((movement) => {
 #### destruturing
 
 ```js
-for (const [index, movement] of movements.entries()) {
-  movement > 0
-    ? console.log(`Movement ${index + 1}: Your deposite id ${movement} `)
-    : console.log(`Movement ${index + 1}: You Withdre ${Math.abs(movement)}`);
-} // Traditional
+// forEach Method
 
-console.log(`----------------------------`);
+// looping with for of
+// for (const mov of movements) {
+for (const [index, mov] of movements.entries()) {
+  if (mov > 0) console.log(`Movements ${index + 1}: You deposited ${mov}`);
 
-movements.forEach((movement, index, array) => {
-  movement > 0
-    ? console.log(`Movement ${index + 1}: Your deposite id ${movement} `)
-    : console.log(`Movement ${index + 1}: You Withdre ${Math.abs(movement)}`);
+  if (mov < 0)
+    console.log(`Movements ${index + 1}: You withdrew ${Math.abs(mov)}`);
+}
+
+console.log(`-----------------`);
+
+// looping with foreach
+movements.forEach((mov, index) => {
+  if (mov > 0) console.log(`Movements ${index + 1}: You deposited ${mov}`);
+
+  if (mov < 0)
+    console.log(`Movements ${index + 1}: You withdrew ${Math.abs(mov)}`);
 });
 // 0: function(200)
 // 1: function(450)
@@ -46,4 +53,4 @@ movements.forEach((movement, index, array) => {
 // ...
 ```
 
-> forEach always loop over the entier arrays
+[Next: foreach with maps and sets](./04-foreach-with-maps-and-sets.md)

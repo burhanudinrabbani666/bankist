@@ -102,11 +102,10 @@ console.log(nums); // [1, 2, 6, 7, 8, 9, 10]
 
 // 5. Join Method
 console.log(nums.join(" ")); // "1 2 6 7 8 9 10"
-*/
 
 const arr = [1, 2, 3, 4, 5];
 
-// 1. At Method
+// 6. At Method
 console.log(arr[0]); // 1
 console.log(arr.at(0)); // 1
 
@@ -117,3 +116,25 @@ console.log(arr.at(-1)); // 5
 
 // use at string
 console.log("burhanudin rabbani".at(-1)); // i
+*/
+
+// 7. forEach Method
+
+// looping with for of
+// for (const mov of movements) {
+for (const [index, mov] of movements.entries()) {
+  if (mov > 0) console.log(`Movements ${index + 1}: You deposited ${mov}`);
+
+  if (mov < 0)
+    console.log(`Movements ${index + 1}: You withdrew ${Math.abs(mov)}`);
+}
+
+console.log(`-----------------`);
+
+// looping with foreach
+movements.forEach((mov, index) => {
+  if (mov > 0) console.log(`Movements ${index + 1}: You deposited ${mov}`);
+
+  if (mov < 0)
+    console.log(`Movements ${index + 1}: You withdrew ${Math.abs(mov)}`);
+});
