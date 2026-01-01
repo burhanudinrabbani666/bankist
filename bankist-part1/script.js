@@ -61,38 +61,44 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+// for save the current account login
+let currentAccount;
+
 // FUNCTION
-
 // Display
-function displayMovements(movements) {
-  movements.forEach((movement, index) => {
-    const type = movement > 0 ? "deposit" : "withdrawal";
+function displayMovements(acc) {
+  const html = acc.movements
+    .map((movement, index) => {
+      const type = movement > 0 ? "deposit" : "withdrawal";
 
-    const html = `
-    <div class="movements__row">
+      return `
+        <div class="movements__row">
       <div class="movements__type movements__type--${type}">${
-      index + 1
-    } deposit</div>
+        index + 1
+      } deposit</div>
       <div class="movements__value">${movement}€</div>
     </div>
-    `;
 
-    containerMovements.insertAdjacentHTML("afterbegin", html);
-  });
+    `;
+    })
+    .reverse()
+    .join("");
+
+  containerMovements.innerHTML = html;
 }
 
-function displaySummary(movements) {
-  const incomes = movements
+function displaySummary(acc) {
+  const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const outcome = movements
+  const outcome = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const interest = movements
+  const interest = acc.movements
     .filter((mov) => mov > 0)
-    .map((deposit) => (deposit * 1.2) / 100)
+    .map((deposit) => (deposit * acc.interestRate) / 100)
     .filter((interest) => interest >= 1)
     .reduce((acc, interest) => acc + interest, 0);
 
@@ -102,12 +108,20 @@ function displaySummary(movements) {
   labelSumInterest.textContent = `${interest} €`;
 }
 
+function calcAndPrintBalance(acc) {
+  const balance = acc.movements.reduce((acc, curr) => {
+    return (acc += curr);
+  });
+
+  // Render in DOM
+  labelBalance.textContent = `${balance} EUR`;
+}
+
 // Bussiness Logic
-// map in practice
 function createUserName(accounts) {
   accounts.forEach((account) => {
     // adding new properti to account
-    account.userName = account.owner
+    account.username = account.owner
       .toLocaleLowerCase()
       .split(" ")
       .map((name) => name[0])
@@ -115,19 +129,40 @@ function createUserName(accounts) {
   });
 }
 
-// reduce in practice
-function calcAndPrintBalance(movement) {
-  const balance = movement.reduce((acc, curr) => {
-    return (acc += curr);
-  });
-
-  labelBalance.textContent = `${balance} EUR`;
-}
-
-displayMovements(account1.movements);
-displaySummary(account1.movements);
-calcAndPrintBalance(account1.movements);
+// Initial function calling
 createUserName(accounts);
+
+//Event Handler
+btnLogin.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and Welcome message
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(" ")[0]
+    }`;
+    containerApp.style.opacity = 1;
+
+    // Clear input
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur();
+
+    // Display summary,
+    displaySummary(currentAccount);
+
+    // Display balance
+    calcAndPrintBalance(currentAccount);
+
+    // Display movements
+    displayMovements(currentAccount);
+  }
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -390,7 +425,6 @@ const totalDepositeInUSD = movements
 
 console.log(totalDepositeInUSD);
 
-*/
 // Challenge #3
 function calcAvgHumanAge(ages) {
   const avgHumanAges = ages
@@ -406,3 +440,15 @@ function calcAvgHumanAge(ages) {
 
 console.log(calcAvgHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAvgHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+// find method
+const firstWithdrawal = movements.find((mov) => mov < 0);
+const account = accounts.find((acc) => (acc.owner = "Jessica Devis"));
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(firstWithdrawal); // -450, first value and not array
+console.log(accounts);
+
+console.log(account);
+
+*/
