@@ -1,4 +1,4 @@
-![](./bankist-part1/logo.png)
+![bankist](./bankist-part1/logo.png)
 
 # Bankist
 

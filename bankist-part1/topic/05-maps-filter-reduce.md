@@ -76,3 +76,5 @@ const maximumValue = movements.reduce((acc, curr) => {
 
 console.log(maximumValue);
 ```
+
+[Next: Computing username](./06-computing-usernamse.md)

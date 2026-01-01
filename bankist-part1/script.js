@@ -63,6 +63,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 
 // FUNCTION
 
+// Display
 function displayMovements(movements) {
   movements.forEach((movement, index) => {
     const type = movement > 0 ? "deposit" : "withdrawal";
@@ -80,6 +81,28 @@ function displayMovements(movements) {
   });
 }
 
+function displaySummary(movements) {
+  const incomes = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const outcome = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const interest = movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .filter((interest) => interest >= 1)
+    .reduce((acc, interest) => acc + interest, 0);
+
+  // Render in DOM
+  labelSumIn.textContent = `${incomes} €`;
+  labelSumOut.textContent = `${Math.abs(outcome)} €`;
+  labelSumInterest.textContent = `${interest} €`;
+}
+
+// Bussiness Logic
 // map in practice
 function createUserName(accounts) {
   accounts.forEach((account) => {
@@ -102,6 +125,7 @@ function calcAndPrintBalance(movement) {
 }
 
 displayMovements(account1.movements);
+displaySummary(account1.movements);
 calcAndPrintBalance(account1.movements);
 createUserName(accounts);
 /////////////////////////////////////////////////
@@ -333,11 +357,10 @@ Data 1: [5, 2, 4, 1, 15, 8, 3]
 Data 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
-*/
 
 function calcAvgHumanAge(ages) {
   const humanAges = ages
-    .map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+  .map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
     .filter((dogAge) => dogAge >= 18);
 
   // const AvgHumanAge =
@@ -354,6 +377,32 @@ function calcAvgHumanAge(ages) {
 
   return AvgHumanAge;
 }
+
+console.log(calcAvgHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(calcAvgHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+// Chaining method
+
+const totalDepositeInUSD = movements
+  .filter((mov) => mov > 0)
+  .map((mov) => mov * 1.1)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositeInUSD);
+
+*/
+// Challenge #3
+function calcAvgHumanAge(ages) {
+  const avgHumanAges = ages
+    .map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+    .filter((dogAge) => dogAge >= 18)
+    .reduce((acc, age, _, array) => acc + age / array.length, 0);
+
+  return avgHumanAges;
+}
+
+// §Data 1: [5, 2, 4, 1, 15, 8, 3]
+// §Data 2: [16, 6, 10, 5, 6, 1, 4]
 
 console.log(calcAvgHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAvgHumanAge([16, 6, 10, 5, 6, 1, 4]));
