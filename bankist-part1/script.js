@@ -504,3 +504,20 @@ console.log(accounts);
 console.log(account);
 
 */
+
+console.log(movements);
+
+const lastWithdrawal = movements.findLastIndex((mov) => mov < 0);
+console.log(lastWithdrawal);
+
+const latestLargeMovementIndex = movements.findLastIndex(
+  (mov) => Math.abs(mov) > 2000
+);
+
+console.log(
+  `Your latest large movement was ${
+    movements.length - latestLargeMovementIndex === 1
+      ? `last Movement`
+      : `${movements.length - latestLargeMovementIndex} movements ago`
+  }`
+);
