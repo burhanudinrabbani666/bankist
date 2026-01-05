@@ -193,6 +193,27 @@ btnTransfer.addEventListener("click", function (event) {
   }
 });
 
+btnLoan.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((movement) => movement >= amount * 0.1)
+  ) {
+    // Add Movemenet
+    currentAccount.movements = [...currentAccount.movements, amount];
+
+    // Update UI
+    updateUi(currentAccount);
+  } else {
+    alert("Loan Not accepted");
+  }
+
+  inputLoanAmount.value = "";
+});
+
 btnClose.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -200,12 +221,6 @@ btnClose.addEventListener("click", function (event) {
     inputCloseUsername.value === currentAccount.username &&
     Number(inputClosePin.value) === currentAccount.pin
   ) {
-    // const index = accounts.findIndex(
-    //   (account) => account.username === currentAccount.username
-    // );
-
-    // accounts.splice(index, 1);
-
     accounts = accounts.filter(
       (account) => account.username !== inputCloseUsername.value
     );
@@ -503,7 +518,6 @@ console.log(accounts);
 
 console.log(account);
 
-*/
 
 console.log(movements);
 
@@ -521,3 +535,9 @@ console.log(
       : `${movements.length - latestLargeMovementIndex} movements ago`
   }`
 );
+console.log(movements);
+console.log(movements.includes(-130));
+
+const anyDeposit = movements.some((movement) => movement > 3000);
+console.log(anyDeposit);
+*/
