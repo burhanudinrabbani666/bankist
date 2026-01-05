@@ -33,7 +33,7 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+let accounts = [account1, account2, account3, account4];
 
 // Elements
 const labelWelcome = document.querySelector(".welcome");
@@ -151,7 +151,6 @@ btnLogin.addEventListener("click", (event) => {
     (acc) => acc.username === inputLoginUsername.value
   );
 
-  console.log(currentAccount);
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and Welcome message
     labelWelcome.textContent = `Welcome back ${
@@ -192,6 +191,29 @@ btnTransfer.addEventListener("click", function (event) {
     // Update UI
     updateUi(currentAccount);
   }
+});
+
+btnClose.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    // const index = accounts.findIndex(
+    //   (account) => account.username === currentAccount.username
+    // );
+
+    // accounts.splice(index, 1);
+
+    accounts = accounts.filter(
+      (account) => account.username !== inputCloseUsername.value
+    );
+
+    containerApp.style.opacity = 0;
+  }
+
+  inputCloseUsername.value = inputClosePin.value = "";
 });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
