@@ -66,8 +66,8 @@ let currentAccount;
 
 // FUNCTION
 // Display
-function displayMovements(acc) {
-  const html = acc.movements
+function displayMovements(currentAccount) {
+  const html = currentAccount.movements
     .map((movement, index) => {
       const type = movement > 0 ? "deposit" : "withdrawal";
 
@@ -87,18 +87,18 @@ function displayMovements(acc) {
   containerMovements.innerHTML = html;
 }
 
-function displaySummary(acc) {
-  const incomes = acc.movements
+function displaySummary(currentAccount) {
+  const incomes = currentAccount.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const outcome = acc.movements
+  const outcome = currentAccount.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const interest = acc.movements
+  const interest = currentAccount.movements
     .filter((mov) => mov > 0)
-    .map((deposit) => (deposit * acc.interestRate) / 100)
+    .map((deposit) => (deposit * currentAccount.interestRate) / 100)
     .filter((interest) => interest >= 1)
     .reduce((acc, interest) => acc + interest, 0);
 
@@ -108,13 +108,24 @@ function displaySummary(acc) {
   labelSumInterest.textContent = `${interest} €`;
 }
 
-function calcAndPrintBalance(acc) {
-  const balance = acc.movements.reduce((acc, curr) => {
+function calcAndPrintBalance(currentAccount) {
+  currentAccount.balance = currentAccount.movements.reduce((acc, curr) => {
     return (acc += curr);
-  });
+  }, 0);
 
   // Render in DOM
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${currentAccount.balance} EUR`;
+}
+
+function updateUi(currentAccount) {
+  // Display summary,
+  displaySummary(currentAccount);
+
+  // Display balance
+  calcAndPrintBalance(currentAccount);
+
+  // Display movements
+  displayMovements(currentAccount);
 }
 
 // Bussiness Logic
@@ -152,17 +163,36 @@ btnLogin.addEventListener("click", (event) => {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
-    // Display summary,
-    displaySummary(currentAccount);
-
-    // Display balance
-    calcAndPrintBalance(currentAccount);
-
-    // Display movements
-    displayMovements(currentAccount);
+    updateUi(currentAccount);
   }
 });
 
+btnTransfer.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const reciverAccount = accounts.find(
+    (account) => account.username === inputTransferTo.value
+  );
+
+  // Clear fields
+  inputTransferAmount.value = inputTransferTo.value = "";
+
+  if (!reciverAccount) alert("Account not Found"); // check account
+
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    reciverAccount.username !== currentAccount.username
+  ) {
+    // Doing Transfer
+    currentAccount.movements = [...currentAccount.movements, -amount];
+    reciverAccount.movements = [...reciverAccount.movements, amount];
+
+    // Update UI
+    updateUi(currentAccount);
+  }
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
