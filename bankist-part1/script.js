@@ -66,8 +66,12 @@ let currentAccount;
 
 // FUNCTION
 // Display
-function displayMovements(currentAccount) {
-  const html = currentAccount.movements
+function displayMovements(currentAccount, sort = false) {
+  const movements = sort
+    ? currentAccount.movements.slice().sort((a, b) => a - b)
+    : currentAccount.movements;
+
+  const html = movements
     .map((movement, index) => {
       const type = movement > 0 ? "deposit" : "withdrawal";
 
@@ -230,6 +234,15 @@ btnClose.addEventListener("click", function (event) {
 
   inputCloseUsername.value = inputClosePin.value = "";
 });
+
+let sorted = false;
+
+btnSort.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  displayMovements(currentAccount, !sorted);
+  sorted = !sorted;
+});
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -328,6 +341,7 @@ currencies2.forEach((currencie, key) => {
 */
 
 /*
+
 Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners
 about their dog's age, and stored the data into an array (one array for each). For
 now, they are just interested in knowing whether a dog is an adult or a puppy.
@@ -658,3 +672,20 @@ console.log(active);
 
 const heaviestBreed = Math.max(...breeds.flatMap((dog) => dog.averageWeight));
 */
+
+// Sort
+const owner = ["Jonas", "Zach", "Adam", "Martha"];
+console.log(owner.sort());
+console.log(owner);
+
+// Numbers
+console.log(movements);
+
+// Return < 0. A, B
+// Return > 0. B, A
+movements.sort((a, b) => {
+  if (a > b) return 1;
+  if (a < b) return -1;
+});
+
+console.log(movements);
