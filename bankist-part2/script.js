@@ -81,6 +81,11 @@ const inputClosePin = document.querySelector(".form__input--pin");
 // for save the current account login
 let currentAccount;
 
+// fake always login
+currentAccount = account1;
+updateUi(currentAccount);
+containerApp.style.opacity = 1;
+
 // FUNCTION
 // Display
 function displayMovements(currentAccount, sort = false) {
@@ -92,14 +97,21 @@ function displayMovements(currentAccount, sort = false) {
     .map((movement, index) => {
       const type = movement > 0 ? "deposit" : "withdrawal";
 
+      const date = new Date(currentAccount.movementsDates[index]);
+      const day = `${date.getDate()}`.padStart(2, 0);
+      const month = `${date.getMonth() + 1}`.padStart(2, 0);
+      const year = date.getFullYear();
+
+      const displayDate = `${day}/${month}/${year}`;
+
       return `
         <div class="movements__row">
-      <div class="movements__type movements__type--${type}">${
+          <div class="movements__type movements__type--${type}">${
         index + 1
-      } deposit</div>
-      <div class="movements__value">${movement.toFixed(2)}€</div>
-    </div>
-
+      } ${type}</div>
+          <div class="movements__date">${displayDate}</div>
+          <div class="movements__value">${movement.toFixed(2)}€</div>
+        </div>
     `;
     })
     .reverse()
@@ -179,6 +191,16 @@ btnLogin.addEventListener("click", (event) => {
     }`;
     containerApp.style.opacity = 1;
 
+    // Welcome message
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hours = `${now.getHours()}`.padStart(2, 0);
+    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+
+    labelDate.textContent = `${day}/${month}/${year}, ${hours}:${minutes}`;
+
     // Clear input
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
@@ -194,6 +216,7 @@ btnTransfer.addEventListener("click", function (event) {
   const reciverAccount = accounts.find(
     (account) => account.username === inputTransferTo.value
   );
+  const movementDate = new Date().toISOString();
 
   // Clear fields
   inputTransferAmount.value = inputTransferTo.value = "";
@@ -207,7 +230,16 @@ btnTransfer.addEventListener("click", function (event) {
   ) {
     // Doing Transfer
     currentAccount.movements = [...currentAccount.movements, -amount];
+    currentAccount.movementsDates = [
+      ...currentAccount.movementsDates,
+      movementDate,
+    ];
+
     reciverAccount.movements = [...reciverAccount.movements, amount];
+    reciverAccount.movementsDates = [
+      ...reciverAccount.movementsDates,
+      movementDate,
+    ];
 
     // Update UI
     updateUi(currentAccount);
@@ -218,6 +250,7 @@ btnLoan.addEventListener("click", function (event) {
   event.preventDefault();
 
   const amount = Math.floor(inputLoanAmount.value);
+  const movementDate = new Date().toISOString();
 
   if (
     amount > 0 &&
@@ -225,6 +258,12 @@ btnLoan.addEventListener("click", function (event) {
   ) {
     // Add Movemenet
     currentAccount.movements = [...currentAccount.movements, amount];
+
+    // add movements dates
+    currentAccount.movementsDates = [
+      ...currentAccount.movementsDates,
+      movementDate,
+    ];
 
     // Update UI
     updateUi(currentAccount);
@@ -351,4 +390,53 @@ console.log(Math.floor(-23.3)); // -24
 // Rounding desimals - to string
 console.log((2.7).toFixed(0)); // "3"
 console.log((2.7).toFixed(3)); // "2.700"
+
+//////////////////
+// 03. Reminder
+
+console.log(5 % 2); // 1
+console.log(5 / 2); // 5 = 2 * 2 + 1 <---- 1 is reminder
+
+function isEven(n) {
+  return n % 2 === 0;
+}
+
+console.log(isEven(8));
+console.log(isEven(23));
+console.log(isEven(514));
+
+/////////////
+// 06. Date
+// Creating Date
+
+const now = new Date();
+console.log(now);
+
+console.log(new Date("Jan 08 2026 13:14:04"));
+console.log(new Date("December 24, 2025"));
+console.log(new Date(account1.movementsDates[0]));
+console.log(new Date(2037, 10, 31, 15, 23, 5));
+
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// Working with date
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+console.log(new Date(2142231780000));
+console.log(Date.now());
+
+future.setFullYear(2040);
+console.log(future);
 */

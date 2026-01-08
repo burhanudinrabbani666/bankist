@@ -1,6 +1,6 @@
 # MATH AND ROUNDING
 
-````js
+```js
 console.log(Math.sqrt(25));
 console.log(25 ** (1 / 2));
 console.log(8 ** (1 / 3));
@@ -52,4 +52,5 @@ console.log(Math.floor(-23.3)); // -24
 console.log((2.7).toFixed(0)); // "3"
 console.log((2.7).toFixed(3)); // "2.700"
 ```
-````
+
+[Next: remainder](./03-remainder.md)

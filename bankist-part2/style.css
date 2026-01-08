@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #444;
   background-color: #f3f3f3;
   height: 100vh;
@@ -134,7 +134,11 @@ nav {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.movements__row:nth-child(even) {
+  background-color: rgba(238, 238, 238, 0.362);
 }
 
 .movements__type {
