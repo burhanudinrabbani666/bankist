@@ -97,7 +97,7 @@ function displayMovements(currentAccount, sort = false) {
       <div class="movements__type movements__type--${type}">${
         index + 1
       } deposit</div>
-      <div class="movements__value">${movement}€</div>
+      <div class="movements__value">${movement.toFixed(2)}€</div>
     </div>
 
     `;
@@ -124,9 +124,9 @@ function displaySummary(currentAccount) {
     .reduce((acc, interest) => acc + interest, 0);
 
   // Render in DOM
-  labelSumIn.textContent = `${incomes} €`;
-  labelSumOut.textContent = `${Math.abs(outcome)} €`;
-  labelSumInterest.textContent = `${interest} €`;
+  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
+  labelSumOut.textContent = `${Math.abs(outcome).toFixed(2)} €`;
+  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
 }
 
 function calcAndPrintBalance(currentAccount) {
@@ -135,7 +135,7 @@ function calcAndPrintBalance(currentAccount) {
   }, 0);
 
   // Render in DOM
-  labelBalance.textContent = `${currentAccount.balance} EUR`;
+  labelBalance.textContent = `${currentAccount.balance.toFixed(2)} EUR`;
 }
 
 function updateUi(currentAccount) {
@@ -217,7 +217,7 @@ btnTransfer.addEventListener("click", function (event) {
 btnLoan.addEventListener("click", function (event) {
   event.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (
     amount > 0 &&
@@ -263,6 +263,7 @@ btnSort.addEventListener("click", function (event) {
 
 /////////////////
 
+/*
 // 01. Checking number
 
 console.log(0.1 + 0.2); // 0.30000000000000004
@@ -296,3 +297,58 @@ console.log(Number.isInteger(20)); // true
 console.log(Number.isInteger("20")); // false
 console.log(Number.isInteger(+"20x")); // false
 console.log(Number.isInteger(23 / 0)); // false
+
+////////////////////////////////
+// 02. Math and Rounding
+
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+
+// Math max and Math min
+console.log(Math.max(5, 23, 65, 43, 11));
+console.log(Math.max(5, 23, "65", 43, 11));
+console.log(Math.max(5, 23, "65px", 43, 11));
+
+console.log(Math.min(5, 23, 65, 43, 11));
+console.log(Math.min("5", 23, 65, 43, 11));
+
+// Math PI
+console.log(Math.PI * Number.parseFloat("10px") ** 2);
+
+// Math random
+console.log(Math.random() * 6); // 0.... - 5
+
+// Math trunc
+console.log(Math.trunc(Math.random() * 6) + 1); // 1 - 6
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min) + 1) + min;
+
+// console.log(randomInt(10, 20));
+// console.log(randomInt(0, 3));
+
+// Rounding
+
+console.log(Math.trunc(23.3)); // 23
+
+// Math round
+console.log(Math.round(23.3)); // 23
+console.log(Math.round(23.9)); // 24
+
+// Math ceil
+console.log(Math.ceil(23.3)); // 24
+console.log(Math.ceil(23.9)); // 24
+
+// Math floor
+console.log(Math.floor(23.3)); // 23
+console.log(Math.floor(23.9)); // 23
+
+// Negative value
+console.log(Math.trunc(-23.3)); // -23
+console.log(Math.floor(-23.3)); // -24
+
+// Rounding desimals - to string
+console.log((2.7).toFixed(0)); // "3"
+console.log((2.7).toFixed(3)); // "2.700"
+*/
