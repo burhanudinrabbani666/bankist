@@ -17,3 +17,5 @@ console.log(PI);
 console.log(Number("230_000")); // NaN
 console.log(parseInt("230_000")); // 230
 ```
+
+[Next: bigInt](./05-bigint.md)

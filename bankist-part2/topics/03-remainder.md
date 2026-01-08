@@ -23,3 +23,5 @@ labelBalance.addEventListener("click", function () {
   });
 });
 ```
+
+[Next: Numeric Separator](./04-numeric-separator.md)

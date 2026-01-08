@@ -17,3 +17,5 @@ const formatMovementDate = (date) => {
   return `${day}/${month}/${year}`;
 };
 ```
+
+[Next: Internationaliz date](./08-intl-date.md)

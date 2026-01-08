@@ -29,3 +29,5 @@ console.log(2n == `20`);
 console.log(11n / 3n);
 console.log(10 / 3);
 ```
+
+[Next: Date](./06-date.md)

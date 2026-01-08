@@ -89,15 +89,23 @@ containerApp.style.opacity = 1;
 // FUNCTION
 // Display
 function displayMovements(currentAccount, sort = false) {
-  const movements = sort
-    ? currentAccount.movements.slice().sort((a, b) => a - b)
-    : currentAccount.movements;
+  const combineMovementAndDates = currentAccount.movements.map(
+    (movement, index) => {
+      return {
+        movement,
+        movementDate: currentAccount.movementsDates.at(index),
+      };
+    }
+  );
 
-  const html = movements
-    .map((movement, index) => {
+  if (sort) combineMovementAndDates.sort((a, b) => a.movement - b.movement);
+
+  const html = combineMovementAndDates
+    .map((object, index) => {
+      const { movement, movementDate } = object;
       const type = movement > 0 ? "deposit" : "withdrawal";
 
-      const date = new Date(currentAccount.movementsDates[index]);
+      const date = new Date(movementDate);
       const day = `${date.getDate()}`.padStart(2, 0);
       const month = `${date.getMonth() + 1}`.padStart(2, 0);
       const year = date.getFullYear();

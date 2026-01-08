@@ -40,3 +40,5 @@ console.log(new Date(nowDate));
 future.setFullYear(2040);
 console.log(future);
 ```
+
+[Next: working with date](./07-withdate.md)
