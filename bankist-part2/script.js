@@ -81,11 +81,12 @@ const inputClosePin = document.querySelector(".form__input--pin");
 // for save the current account login
 let currentAccount;
 let sorted = false;
+let timer;
 
 // fake always login
-currentAccount = account1;
-updateUi(currentAccount);
-containerApp.style.opacity = 1;
+// currentAccount = account1;
+// updateUi(currentAccount);
+// containerApp.style.opacity = 1;
 
 // FUNCTION
 function formatCurrencies(value, locale, currency) {
@@ -225,6 +226,32 @@ function createUserName(accounts) {
   });
 }
 
+const startLogoutTimer = function () {
+  const tick = () => {
+    const min = `${Math.trunc(time / 60)}`.padStart(2, 0);
+    const sec = `${time % 60}`.padStart(2, 0);
+
+    // Each call print remining time
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // timer 0, stop timer and logout
+    if (time === 0) {
+      clearInterval(timer);
+
+      labelWelcome.textContent = `log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    // decrises
+    time--;
+  };
+  let time = 30;
+  // call tiemr every second
+  const timer = setInterval(tick, 1000);
+
+  return timer;
+};
+
 // Initial function calling
 createUserName(accounts);
 
@@ -261,6 +288,10 @@ btnLogin.addEventListener("click", (event) => {
     // Clear input
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
+
+    labelTimer.textContent = "";
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
 
     updateUi(currentAccount);
   }
@@ -300,6 +331,10 @@ btnTransfer.addEventListener("click", function (event) {
 
     // Update UI
     updateUi(currentAccount);
+
+    // Reset timer
+    clearInterval(timer);
+    timer = startLogoutTimer();
   }
 });
 
@@ -313,17 +348,23 @@ btnLoan.addEventListener("click", function (event) {
     amount > 0 &&
     currentAccount.movements.some((movement) => movement >= amount * 0.1)
   ) {
-    // Add Movemenet
-    currentAccount.movements = [...currentAccount.movements, amount];
+    setTimeout(() => {
+      // Add Movemenet
+      currentAccount.movements = [...currentAccount.movements, amount];
 
-    // add movements dates
-    currentAccount.movementsDates = [
-      ...currentAccount.movementsDates,
-      movementDate,
-    ];
+      // add movements dates
+      currentAccount.movementsDates = [
+        ...currentAccount.movementsDates,
+        movementDate,
+      ];
 
-    // Update UI
-    updateUi(currentAccount);
+      // Update UI
+      updateUi(currentAccount);
+
+      // Reset
+      clearInterval(timer);
+      timer = startLogoutTimer();
+    }, 2500);
   } else {
     alert("Loan Not accepted");
   }
@@ -502,7 +543,6 @@ const calcDayPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24);
 const day1 = calcDayPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 
 // console.log(day1);
-*/
 
 // intl date
 
@@ -516,3 +556,13 @@ const options = {
 console.log(`US:     `, new Intl.NumberFormat("en-US", options).format(num));
 console.log(`Germany:`, new Intl.NumberFormat("de-BE", options).format(num));
 console.log(`Syria:  `, new Intl.NumberFormat("ar-SY", options).format(num));
+
+// Set timeout
+setTimeout(() => console.log("Hello World"), 3000);
+console.log("Hi");
+
+// Set interval
+// setInterval(() => {
+//   console.log(new Date().getSeconds());
+// }, 1000);
+*/
