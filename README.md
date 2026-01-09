@@ -34,3 +34,11 @@ Bankist is an application that displays the results of our deposits and withdraw
 - Dynamic Render internalization text
 
 ## Screenshot of the project
+
+![Bankist website](./src/img/bankist-website.png)
+![Bankist Login](./src/img/login.png)
+![Bankist App](./src/img/app.png)
+
+## Thanks
+
+I hope that by completing this project I will gain good experience and knowledge that will be useful for my career.
