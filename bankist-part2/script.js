@@ -88,6 +88,13 @@ updateUi(currentAccount);
 containerApp.style.opacity = 1;
 
 // FUNCTION
+function formatCurrencies(value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+}
+
 function formatMovementDate(date, currentAccount) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -127,13 +134,19 @@ function displayMovements(currentAccount, sort = false) {
       const date = new Date(movementDate);
       const displayDate = formatMovementDate(date, currentAccount);
 
+      const formatedMovements = formatCurrencies(
+        movement,
+        currentAccount.locale,
+        currentAccount.currency
+      );
+
       return `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
         index + 1
       } ${type}</div>
           <div class="movements__date">${displayDate}</div>
-          <div class="movements__value">${movement.toFixed(2)}€</div>
+          <div class="movements__value">${formatedMovements}</div>
         </div>
     `;
     })
@@ -159,9 +172,21 @@ function displaySummary(currentAccount) {
     .reduce((acc, interest) => acc + interest, 0);
 
   // Render in DOM
-  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
-  labelSumOut.textContent = `${Math.abs(outcome).toFixed(2)} €`;
-  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
+  labelSumIn.textContent = formatCurrencies(
+    incomes,
+    currentAccount.locale,
+    currentAccount.currency
+  );
+  labelSumOut.textContent = formatCurrencies(
+    Math.abs(outcome),
+    currentAccount.locale,
+    currentAccount.currency
+  );
+  labelSumInterest.textContent = formatCurrencies(
+    interest,
+    currentAccount.locale,
+    currentAccount.currency
+  );
 }
 
 function calcAndPrintBalance(currentAccount) {
@@ -170,7 +195,11 @@ function calcAndPrintBalance(currentAccount) {
   }, 0);
 
   // Render in DOM
-  labelBalance.textContent = `${currentAccount.balance.toFixed(2)} EUR`;
+  labelBalance.textContent = formatCurrencies(
+    currentAccount.balance,
+    currentAccount.locale,
+    currentAccount.currency
+  );
 }
 
 function updateUi(currentAccount) {
@@ -476,3 +505,14 @@ const day1 = calcDayPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 */
 
 // intl date
+
+const num = 1323221.23;
+const options = {
+  style: "currency",
+  unit: "celsius",
+  currency: account2.currency,
+};
+
+console.log(`US:     `, new Intl.NumberFormat("en-US", options).format(num));
+console.log(`Germany:`, new Intl.NumberFormat("de-BE", options).format(num));
+console.log(`Syria:  `, new Intl.NumberFormat("ar-SY", options).format(num));
