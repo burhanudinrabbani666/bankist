@@ -40,7 +40,7 @@ function App() {
 
       setTimeout(() => {
         containerApp.style.opacity = 1;
-      }, 500);
+      }, 300);
 
       // Welcome message
       const now = new Date();
