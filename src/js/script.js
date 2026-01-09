@@ -35,4 +35,19 @@ document.addEventListener("keydown", function (e) {
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
-console.log(document.documentElement);
+// Adding element for cookie content
+
+const header = document.querySelector(".header");
+document.querySelectorAll(".section");
+
+// adding new element
+const message = document.createElement("div");
+message.classList.add("cookie-message");
+message.innerHTML = `We use cookied for improved functionallity and analytics. <button class="btn btn--close-cookie">Got it!</button>`;
+
+header.append(message);
+
+// delete element
+document.querySelector(".btn--close-cookie").addEventListener("click", () => {
+  message.remove();
+});
