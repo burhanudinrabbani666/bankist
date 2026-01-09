@@ -1,4 +1,5 @@
 // Elements
+export const nav = document.querySelector(".nav");
 export const labelWelcome = document.querySelector(".welcome");
 export const labelDate = document.querySelector(".date");
 export const labelBalance = document.querySelector(".balance__value");

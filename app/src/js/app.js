@@ -7,7 +7,7 @@ import {
   btnLogin, btnTransfer, btnLoan, btnClose, btnSort, containerApp,
   inputLoginUsername, inputLoginPin, inputCloseUsername, inputClosePin, inputTransferAmount, inputTransferTo,
   labelWelcome, labelDate, labelTimer,
-  inputLoanAmount,
+  inputLoanAmount,nav
 } from "./element.js";
 
 import { updateUi, displayMovements } from "./view.js";
@@ -35,7 +35,12 @@ function App() {
       labelWelcome.textContent = `Welcome back ${
         currentAccount.owner.split(" ")[0]
       }`;
-      containerApp.style.opacity = 1;
+      nav.style.display = "none";
+      containerApp.style.display = "grid";
+
+      setTimeout(() => {
+        containerApp.style.opacity = 1;
+      }, 500);
 
       // Welcome message
       const now = new Date();

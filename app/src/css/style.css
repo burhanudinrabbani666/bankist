@@ -21,26 +21,37 @@ body {
   background-color: #f3f3f3;
   height: 100vh;
   padding: 2rem;
+
+  position: relative;
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  max-width: 40%;
   padding: 0 2rem;
+
+  position: absolute;
+  top: 30%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
 }
 
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
+  display: none;
 }
 
 .logo {
   height: 5.25rem;
+  margin-bottom: 2.4rem;
 }
 
 .login {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 0.8rem;
 }
 
 .login__input {
@@ -48,9 +59,8 @@ nav {
   padding: 0.5rem 2rem;
   font-size: 1.6rem;
   font-family: inherit;
-  text-align: center;
-  width: 12rem;
-  border-radius: 10rem;
+  width: 100%;
+  border-radius: 1rem;
   margin-right: 1rem;
   color: inherit;
   border: 1px solid #fff;
@@ -70,9 +80,15 @@ nav {
   border: none;
   background: none;
   font-size: 2.2rem;
-  color: inherit;
+  color: #f3f3f3;
   cursor: pointer;
   transition: all 0.3s;
+
+  background-color: #39b385;
+  margin-top: 0.8rem;
+
+  padding: 0.8rem;
+  border-radius: 1rem;
 }
 
 .login__btn:hover,
@@ -80,7 +96,7 @@ nav {
 .btn--sort:hover,
 .btn--sort:focus {
   outline: none;
-  color: #777;
+  background-color: #309870;
 }
 
 /* MAIN */
@@ -88,7 +104,7 @@ nav {
   position: relative;
   max-width: 100rem;
   margin: 4rem auto;
-  display: grid;
+  display: none;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
