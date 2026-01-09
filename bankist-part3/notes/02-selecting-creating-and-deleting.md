@@ -49,3 +49,5 @@ document
     messsage.parentElement.removeChild(messsage); // old method
   });
 ```
+
+[Next: Styles attributes and classes](./03-styles-attributes-and-clases.md)

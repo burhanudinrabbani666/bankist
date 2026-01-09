@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   color: #444;
   line-height: 1.9;
@@ -114,6 +114,31 @@ img {
 }
 
 /* NAVIGATION */
+.app {
+  width: 100%;
+  text-align: center;
+
+  font-size: 1.4rem;
+
+  padding: 4px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.app a {
+  color: #4bbb7d;
+  transition: all 0.4s;
+
+  font-size: 1.6rem;
+}
+
+.app a:hover,
+.app a:active {
+  color: #39b385;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
@@ -216,7 +241,7 @@ h4 {
 
 .highlight::after {
   display: block;
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -470,7 +495,7 @@ h4 {
 }
 
 .testimonial::before {
-  content: '\201C';
+  content: "\201C";
   position: absolute;
   top: -5.7rem;
   left: -6.8rem;
