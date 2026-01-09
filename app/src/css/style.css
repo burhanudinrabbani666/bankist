@@ -26,8 +26,13 @@ body {
 }
 
 nav {
+  background-color: #fff;
+
+  display: inline-block;
   max-width: 40%;
-  padding: 0 2rem;
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   position: absolute;
   top: 30%;
@@ -39,7 +44,6 @@ nav {
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
-  display: none;
 }
 
 .logo {
@@ -63,13 +67,12 @@ nav {
   border-radius: 1rem;
   margin-right: 1rem;
   color: inherit;
-  border: 1px solid #fff;
+  border: 1px solid #ccc;
   transition: all 0.3s;
 }
 
 .login__input:focus {
   outline: none;
-  border: 1px solid #ccc;
 }
 
 .login__input::placeholder {
@@ -110,7 +113,7 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out anumation */
-  opacity: 0;
+  opacity: 1;
   transition: all 1s;
 }
 
@@ -310,8 +313,24 @@ h2 {
   margin-top: 1.9rem;
   text-align: right;
   font-size: 1.25rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .timer {
   font-weight: 600;
+}
+
+.btn-logout {
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: none;
+  border: 1px solid #ccc;
+}
+
+.btn-logout:hover,
+.btn-logout:active {
+  background-color: #ccc;
 }

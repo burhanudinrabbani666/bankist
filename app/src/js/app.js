@@ -7,7 +7,7 @@ import {
   btnLogin, btnTransfer, btnLoan, btnClose, btnSort, containerApp,
   inputLoginUsername, inputLoginPin, inputCloseUsername, inputClosePin, inputTransferAmount, inputTransferTo,
   labelWelcome, labelDate, labelTimer,
-  inputLoanAmount,nav
+  inputLoanAmount,nav, btnLogout
 } from "./element.js";
 
 import { updateUi, displayMovements } from "./view.js";
@@ -156,6 +156,11 @@ function App() {
       );
 
       containerApp.style.opacity = 0;
+      containerApp.style.display = "none";
+
+      setTimeout(() => {
+        nav.style.display = "inline-block";
+      }, 500);
     }
 
     inputCloseUsername.value = inputClosePin.value = "";
@@ -167,6 +172,15 @@ function App() {
 
     displayMovements(currentAccount, !sorted);
     sorted = !sorted;
+  });
+
+  btnLogout.addEventListener("click", () => {
+    containerApp.style.opacity = 0;
+    containerApp.style.display = "none";
+
+    setTimeout(() => {
+      nav.style.display = "inline-block";
+    }, 500);
   });
 }
 

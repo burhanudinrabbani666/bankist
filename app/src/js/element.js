@@ -18,6 +18,7 @@ export const btnTransfer = document.querySelector(".form__btn--transfer");
 export const btnLoan = document.querySelector(".form__btn--loan");
 export const btnClose = document.querySelector(".form__btn--close");
 export const btnSort = document.querySelector(".btn--sort");
+export const btnLogout = document.querySelector(".btn-logout");
 
 export const inputLoginUsername = document.querySelector(".login__input--user");
 export const inputLoginPin = document.querySelector(".login__input--pin");
