@@ -80,6 +80,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 
 // for save the current account login
 let currentAccount;
+let sorted = false;
 
 // fake always login
 currentAccount = account1;
@@ -87,7 +88,7 @@ updateUi(currentAccount);
 containerApp.style.opacity = 1;
 
 // FUNCTION
-function formatMovementDate(date) {
+function formatMovementDate(date, currentAccount) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -97,11 +98,13 @@ function formatMovementDate(date) {
   if (dayPassed === 1) return `Yesterday`;
   if (dayPassed <= 7) return `${dayPassed} days ago`;
 
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  // return `${day}/${month}/${year}`;
+
+  return new Intl.DateTimeFormat(currentAccount.locale).format(date);
 }
 
 // Display
@@ -122,7 +125,7 @@ function displayMovements(currentAccount, sort = false) {
       const { movement, movementDate } = object;
       const type = movement > 0 ? "deposit" : "withdrawal";
       const date = new Date(movementDate);
-      const displayDate = formatMovementDate(date);
+      const displayDate = formatMovementDate(date, currentAccount);
 
       return `
         <div class="movements__row">
@@ -213,13 +216,18 @@ btnLogin.addEventListener("click", (event) => {
 
     // Welcome message
     const now = new Date();
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hours = `${now.getHours()}`.padStart(2, 0);
-    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    };
 
-    labelDate.textContent = `${day}/${month}/${year}, ${hours}:${minutes}`;
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
 
     // Clear input
     inputLoginUsername.value = inputLoginPin.value = "";
@@ -310,8 +318,6 @@ btnClose.addEventListener("click", function (event) {
 
   inputCloseUsername.value = inputClosePin.value = "";
 });
-
-let sorted = false;
 
 btnSort.addEventListener("click", function (event) {
   event.preventDefault();
@@ -459,7 +465,6 @@ console.log(Date.now());
 
 future.setFullYear(2040);
 console.log(future);
-*/
 
 const future = new Date(2037, 10, 19, 15, 23);
 // console.log(Number(future));
@@ -468,3 +473,6 @@ const calcDayPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24);
 const day1 = calcDayPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 
 // console.log(day1);
+*/
+
+// intl date
