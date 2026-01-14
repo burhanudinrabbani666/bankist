@@ -51,3 +51,24 @@ header.append(message);
 document.querySelector(".btn--close-cookie").addEventListener("click", () => {
   message.remove();
 });
+
+// IMPLEMENT SMOOTH SCROOLING
+
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.getElementById("section--1");
+
+btnScrollTo.addEventListener("click", function (event) {
+  /*
+  const section1Coordinte = section1.getBoundingClientRect();
+  
+  // OLD SCHOLL
+   window.scrollTo({
+     left: section1Coordinte.left + window.scrollX,
+     top: section1Coordinte.top + window.scrollY,
+     behavior: "smooth",
+   });
+  */
+
+  // MODERN BROWSER
+  section1.scrollIntoView({ behavior: "smooth" });
+});

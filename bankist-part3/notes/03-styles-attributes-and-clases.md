@@ -57,3 +57,5 @@ logo.className = "jonas";
 
 console.log(logo);
 ```
+
+[Next: Implement smooth scrolling](./04-implementing-smooth-scrolling.md)

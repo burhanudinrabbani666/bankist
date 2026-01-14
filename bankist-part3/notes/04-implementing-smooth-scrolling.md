@@ -1,5 +1,7 @@
 ## Smooth Scrooling
 
+Always using modern way of set scrolling
+
 ```js
 const btnScroolTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector("#section--1");
@@ -18,3 +20,5 @@ btnScroolTo.addEventListener("click", function (event) {
   section1.scrollIntoView({ behavior: "smooth" });
 });
 ```
+
+[](./05-types-of-events-and-events-handlers.md)
